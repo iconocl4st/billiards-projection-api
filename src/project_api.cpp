@@ -79,7 +79,7 @@ int main(int argc, char **argv) {
 		});
 	// Add graphics...
 
-	app.port(config::ports::PROJECTOR_API_PORT).run();
+	app.port(billiards::config::ports::PROJECTOR_API_PORT).run();
 
 
 	locals::front_end->shutdown();
