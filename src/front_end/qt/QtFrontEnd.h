@@ -32,11 +32,11 @@ namespace billiards::qt {
 		}
 
 		void redraw() override {
-
+			projector.update();
 		}
 
 		void shutdown() override {
-
+			app.quit();
 		}
 	};
 }

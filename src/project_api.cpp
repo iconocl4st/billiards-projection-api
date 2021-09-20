@@ -5,9 +5,10 @@
 #include <pthread.h>
 #include <iostream>
 
-#include "common/3rd_party/crow_all.h"
-#include "common/utils/dump.h"
 #include "common/utils/Args.h"
+
+#include "common/3rd_party/crow_all.h"
+#include "common/utils/crow_common.h"
 #include "common/config/ports.h"
 
 #include "front_end/FrontEnd.h"
@@ -32,17 +33,6 @@ namespace locals {
 }
 
 
-#define RETURN_SUCCESS(msg) do {							\
-	crow::json::wvalue x; 									\
-	x["success"] = true;									\
-	x["message"] = msg;             						\
-    crow::response resp{x};									\
-	resp.add_header("Access-Control-Allow-Origin", "*");	\
-	return resp;			 								\
-} while (false)
-
-
-
 int main(int argc, char **argv) {
 	billiards::utils::Args args{argc, argv};
 
@@ -59,24 +49,42 @@ int main(int argc, char **argv) {
 		.methods("GET"_method, "PUT"_method, "OPTIONS"_method)
 		([](const crow::request& req) {
 			if (req.method == "OPTIONS"_method) {
-				crow::response resp;
-				resp.add_header("Access-Control-Allow-Origin", "*");
-				resp.add_header("Access-Control-Allow-Headers", "Content-Type");
-				resp.add_header("Access-Control-Allow-Methods", "PUT, GET, OPTIONS");
-				return resp;
+				HANDLE_OPTIONS;
 			} else if (req.method == "GET"_method) {
-				crow::response resp{billiards::json::dump(locals::front_end->display.location)};
-				resp.add_header("Access-Control-Allow-Origin", "*");
-				return resp;
+				RETURN_SUCCESS_WITH_DATA("Retrieved the current location", "location",
+					locals::front_end->display.location);
 			} else if (req.method == "PUT"_method) {
 				nlohmann::json value = nlohmann::json::parse(req.body);
-				locals::front_end->display.location.parse(value);
+
+				if (value.contains("location") && value["location"].is_array()) {
+					locals::front_end->display.location.parse(value["location"]);
+				}
 				locals::front_end->redraw();
 				RETURN_SUCCESS("Updated the projector location");
 			} else {
 				return crow::response(404);
 			}
 		});
+
+	CROW_ROUTE(app, "/graphics/")
+		.methods("GET"_method, "PUT"_method, "OPTIONS"_method)
+			([](const crow::request& req) {
+				if (req.method == "OPTIONS"_method) {
+					HANDLE_OPTIONS;
+				} else if (req.method == "GET"_method) {
+					RETURN_SUCCESS_WITH_DATA("Retrieved current graphics", "graphics",
+						locals::front_end->display.graphics);
+				} else if (req.method == "PUT"_method) {
+					nlohmann::json value = nlohmann::json::parse(req.body);
+					if (value.contains("graphics") && value["graphics"].is_array()) {
+						locals::front_end->display.graphics.parse(value["graphics"]);
+					}
+					locals::front_end->redraw();
+					RETURN_SUCCESS("Updated current graphics");
+				} else {
+					return crow::response(404);
+				}
+			});
 	// Add graphics...
 
 	app.port(billiards::config::ports::PROJECTOR_API_PORT).run();

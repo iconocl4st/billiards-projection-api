@@ -8,7 +8,9 @@
 #include <QOpenGLWidget>
 #include <QWidget>
 
+
 #include "../../DisplaySettings.h"
+
 
 namespace billiards::qt {
 

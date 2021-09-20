@@ -10,6 +10,7 @@
 #include <QPainterPath>
 
 #include "./paint.h"
+#include "QtReceiver.h"
 
 namespace billiards::qt {
 
@@ -26,13 +27,19 @@ namespace billiards::qt {
 		int h = height();
 		painter.fillRect(0, 0, w, h, Qt::black);
 
-		std::shared_ptr<gphx::Circle> ptr = std::make_shared<gphx::Circle>(geometry::Point{25, 25}, 25);
-		ptr->color = gphx::Color{1, 1, 0, 1};
-		ptr->fill = true;
-		paint(display.location, painter, ptr);
+//		std::shared_ptr<gphx::Circle> ptr = std::make_shared<gphx::Circle>(geometry::Point{25, 25}, 25);
+//		ptr->color = gphx::Color{1, 1, 0, 1};
+//		ptr->fill = true;
+//		paint(display.location, painter, ptr);
 
 		painter.setFont(font);
 		painter.setPen(Qt::green);
 		painter.drawText(10, 100, QString("Here, we have some text"));
+
+
+		Receiver receiver{display.location, painter};
+		for (const auto& graphics : display.graphics.current_graphics) {
+			receiver.accept(graphics.get());
+		}
 	}
 }

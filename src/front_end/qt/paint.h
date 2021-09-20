@@ -11,73 +11,30 @@
 #include "common/graphics/Circle.h"
 #include "common/graphics/Lines.h"
 
-namespace billiards::qt {
-
-#define SPHERE_RESOLUTION 50
-#define TOLERANCE 1e-4
-
-	class PathFiller {
-	public:
-		const project::RenderLocation& location;
-		QPainter& painter;
-		QPainterPath path;
-		QBrush brush;
-		bool atFirst;
-
-		PathFiller(const project::RenderLocation &location, QPainter& painter, const gphx::Color &color)
-			: location{location}
-			, painter{painter}
-			, path{}
-			, brush{
-				QColor(
-					(int) (255 * color.red),
-					(int) (255 * color.green),
-					(int) (255 * color.blue),
-					(int) (255 * color.alpha)),
-				Qt::SolidPattern}
-			, atFirst{true}
-		{}
-
-		void raw_vertex(const geometry::Point &center) {
-			if (atFirst) {
-				path.moveTo(center.x, center.y);
-				atFirst = false;
-			} else {
-				path.lineTo(center.x, center.y);
-			}
-		}
-
-		void vertex(const geometry::Point &center) {
-			raw_vertex(location.map(center));
-		}
-
-		void setColor(const gphx::Color& color) {
-			brush.setColor(QColor(
-				(int) (255 * color.red),
-				(int) (255 * color.green),
-				(int) (255 * color.blue),
-				(int) (255 * color.alpha)));
-		}
-
-		void fill() {
-			painter.fillPath(path, brush);
-		}
-	};
 
 
-	inline
-	void paint(
-		const project::RenderLocation &location,
-		QPainter& painter,
-		const std::shared_ptr<const gphx::Circle>& ptr
-	) {
-		PathFiller p{location, painter, ptr->color};
-		for (int i=0; i<SPHERE_RESOLUTION; i++) {
-			double a = 2 * M_PI * i / (SPHERE_RESOLUTION - 1);
-			p.vertex(ptr->center + geometry::Point{ptr->radius * std::cos(a), ptr->radius * std::sin(a)});
-		}
-		p.fill();
-	}
+//	inline
+//	void fill(
+//		const project::RenderLocation &location,
+//		QPainter& painter,
+//		const std::shared_ptr<const gphx::Circle>& ptr
+//	) {
+//	}
+//
+//
+//	inline
+//	void fill(
+//		const project::RenderLocation &location,
+//		QPainter& painter,
+//		const std::shared_ptr<const gphx::Polygon>& ptr
+//	) {
+//		PathFiller p{location, painter, ptr->color};
+//		for (int i=0; i<SPHERE_RESOLUTION; i++) {
+//			double a = 2 * M_PI * i / (SPHERE_RESOLUTION - 1);
+//			p.vertex(ptr->center + geometry::Point{ptr->radius * std::cos(a), ptr->radius * std::sin(a)});
+//		}
+//		p.fill();
+//	}
 
 //
 //		template<class iterator>
@@ -314,7 +271,7 @@ namespace billiards::qt {
 //		}
 
 
-}
+//}
 
 
 #endif //BILLIARDS_API_PAINT_H
