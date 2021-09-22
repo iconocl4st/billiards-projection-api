@@ -2,8 +2,9 @@
 // Created by thallock on 9/5/21.
 //
 
-#include <pthread.h>
+#include <thread>
 #include <iostream>
+#include <ctime>
 
 #include "common/utils/Args.h"
 
@@ -17,18 +18,18 @@
 namespace locals {
 	billiards::project::FrontEnd *front_end;
 
-	void *run_front_end(void *a) {
-		auto *args = (billiards::utils::Args *) a;
-
-		locals::front_end = billiards::project::create_front_end(args->argc, args->argv);
+	void run_front_end(int argc, char **argv) {
+		locals::front_end = billiards::project::create_front_end(argc, argv);
 		if (locals::front_end == nullptr) {
 			std::cerr << "Unable to create front end." << std::endl;
-			return nullptr;
+			return;
 		}
 
 		locals::front_end->loop();
+	}
 
-		return nullptr;
+	void *shutdown(void *) {
+
 	}
 }
 
@@ -36,14 +37,38 @@ namespace locals {
 int main(int argc, char **argv) {
 	billiards::utils::Args args{argc, argv};
 
-	pthread_t display_thread;
-	int error = pthread_create(&display_thread, nullptr, locals::run_front_end, (void *) &args);
-	if (error) {
-		std::cerr << "Unable to launch front end loop." << std::endl;
-		return 1;
-	}
+	std::thread display_thread{locals::run_front_end, argc, argv};
 
 	crow::SimpleApp app;
+
+	std::mutex shutdown_mutex;
+	const uint64_t start_time = std::time(0);
+	CROW_ROUTE(app, "/crow/")
+		.methods("GET"_method, "PUT"_method, "OPTIONS"_method)
+			([start_time, &app, &shutdown_mutex](const crow::request& req) {
+				if (req.method == "OPTIONS"_method) {
+					HANDLE_OPTIONS;
+				} else if (req.method == "GET"_method) {
+					std::stringstream string_stream;
+					string_stream << "Uptime: " << (std::time(0) - start_time);
+					RETURN_SUCCESS(string_stream.str());
+				} else if (req.method == "PUT"_method) {
+					nlohmann::json value = nlohmann::json::parse(req.body);
+
+					if (value.contains("shutdown")
+						&& value["shutdown"].is_boolean()
+						&& value["shutdown"].get<bool>()
+					) {
+						// TODO:
+						// This stops the processes from returning...
+						app.stop();
+						RETURN_SUCCESS("Shutting down");
+					}
+					RETURN_SUCCESS("Nothing to do");
+				} else {
+					return crow::response(404);
+				}
+			});
 
 	CROW_ROUTE(app, "/location/")
 		.methods("GET"_method, "PUT"_method, "OPTIONS"_method)
@@ -72,9 +97,11 @@ int main(int argc, char **argv) {
 				if (req.method == "OPTIONS"_method) {
 					HANDLE_OPTIONS;
 				} else if (req.method == "GET"_method) {
+					std::lock_guard<std::mutex> guard{locals::front_end->mutex()};
 					RETURN_SUCCESS_WITH_DATA("Retrieved current graphics", "graphics",
 						locals::front_end->display.graphics);
 				} else if (req.method == "PUT"_method) {
+					std::lock_guard<std::mutex> guard{locals::front_end->mutex()};
 					nlohmann::json value = nlohmann::json::parse(req.body);
 					if (value.contains("graphics") && value["graphics"].is_array()) {
 						locals::front_end->display.graphics.parse(value["graphics"]);
@@ -91,7 +118,7 @@ int main(int argc, char **argv) {
 
 
 	locals::front_end->shutdown();
-	pthread_join(display_thread, nullptr);
+	display_thread.join();
 	delete locals::front_end;
 	return 0;
 }

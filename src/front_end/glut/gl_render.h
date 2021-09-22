@@ -30,7 +30,7 @@ namespace billiards::gl {
 	template<class iterator>
 	void lines(
 		const project::RenderLocation &location,
-		const gphx::Color &color,
+		const graphics::Color &color,
 		iterator begin, iterator end)
 	{
 		if (begin == end) {
@@ -38,7 +38,7 @@ namespace billiards::gl {
 		}
 
 		glBegin(GL_LINES);
-		glColor4d(color.red, color.green, color.blue, color.alpha);
+		glColor4i(color.red, color.green, color.blue, color.alpha);
 
 		geometry::Point prv = location.map(*begin);
 		geometry::Point cur;
@@ -57,7 +57,7 @@ namespace billiards::gl {
 	inline
 	void fill_oval(
 		const project::RenderLocation &location,
-		const gphx::Color &color,
+		const graphics::Color &color,
 		const geometry::Point &center,
 		double rx, double ry,
 		double begin_angle, double end_angle)
@@ -67,7 +67,7 @@ namespace billiards::gl {
 		}
 
 		glBegin(GL_POLYGON);
-		glColor4d(color.red, color.green, color.blue, color.alpha);
+		glColor4i(color.red, color.green, color.blue, color.alpha);
 		for (int i=0; i<SPHERE_RESOLUTION; i++) {
 			double a = begin_angle + i * (end_angle - begin_angle) / (SPHERE_RESOLUTION - 1);
 			vertex(location.map(center + geometry::Point{rx * std::cos(a), ry * std::sin(a)}));
@@ -78,7 +78,7 @@ namespace billiards::gl {
 	inline
 	void fill_circle(
 		const project::RenderLocation &location,
-		const gphx::Color &color,
+		const graphics::Color &color,
 		const geometry::Point &center,
 		double r)
 	{
@@ -89,7 +89,7 @@ namespace billiards::gl {
 	template<class iterator>
 	void fill_polygon(
 		const project::RenderLocation &location,
-		const gphx::Color &color,
+		const graphics::Color &color,
 		iterator begin, iterator end)
 	{
 		if (begin == end) {
@@ -97,7 +97,7 @@ namespace billiards::gl {
 		}
 
 		glBegin(GL_POLYGON);
-		glColor4d(color.red, color.green, color.blue, color.alpha);
+		glColor4i(color.red, color.green, color.blue, color.alpha);
 		do {
 			vertex(location.map(*begin));
 			++begin;
@@ -109,7 +109,7 @@ namespace billiards::gl {
 	inline
 	void fill_line_segment(
 		const project::RenderLocation &location,
-		const gphx::Color &color,
+		const graphics::Color &color,
 		double line_width,
 		const geometry::Point& p1, const geometry::Point& p2
 	) {
@@ -137,7 +137,7 @@ namespace billiards::gl {
 	template<class iterator>
 	void fill_lines(
 		const project::RenderLocation &location,
-		const gphx::Color &color,
+		const graphics::Color &color,
 		double line_width,
 		iterator begin, iterator end)
 	{
@@ -160,7 +160,7 @@ namespace billiards::gl {
 	inline
 	void draw_oval(
 		const project::RenderLocation &location,
-		const gphx::Color &color,
+		const graphics::Color &color,
 		double line_width,
 		const geometry::Point &center,
 		double rx, double ry,
@@ -190,7 +190,7 @@ namespace billiards::gl {
 
 			if (has_prev) {
 				glBegin(GL_POLYGON);
-				glColor4d(color.red, color.green, color.blue, color.alpha);
+				glColor4i(color.red, color.green, color.blue, color.alpha);
 				vertex(prev_inner);
 				vertex(prev_outer);
 				vertex(cur_outer);
@@ -243,7 +243,7 @@ namespace billiards::gl {
 	inline
 	void draw_text(
 		const project::RenderLocation &location,
-		const gphx::Color &color,
+		const graphics::Color &color,
 		const std::string& str,
 		const geometry::Point &loc)
 	{
@@ -252,7 +252,7 @@ namespace billiards::gl {
 	//  GLUT_BITMAP_TIMES_ROMAN_10,
 	//  GLUT_BITMAP_TIMES_ROMAN_24
 
-		glColor4d(color.red, color.green, color.blue, color.alpha);
+		glColor4i(color.red, color.green, color.blue, color.alpha);
 		geometry::Point mapped = location.map(loc);
 		glRasterPos2d(mapped.x, mapped.y);
 		for (char i : str) {

@@ -13,3 +13,8 @@ SOURCES += \
     src/front_end/qt/ProjectorWidget.cpp
 
 HEADERS  += src/front_end/qt/ProjectorWidget.h
+
+binaries.path = $$(DESTDIR)/app
+binaries.files += qt-projection-api
+binaries.CONFIG = no_check_exist
+INSTALLS += binaries

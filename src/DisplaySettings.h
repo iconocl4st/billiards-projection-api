@@ -7,6 +7,7 @@
 
 #include <list>
 #include <memory>
+#include <mutex>
 
 #include "RenderLocation.h"
 
@@ -17,7 +18,8 @@ namespace billiards::project {
 
 	class DisplayGraphics : public json::Serializable {
 	public:
-		std::list<std::shared_ptr<gphx::GraphicsPrimitive>> current_graphics;
+		std::mutex mutex;
+		std::list<std::shared_ptr<graphics::GraphicsPrimitive>> current_graphics;
 
 		DisplayGraphics() = default;
 		~DisplayGraphics() override = default;
@@ -36,7 +38,7 @@ namespace billiards::project {
 			}
 			current_graphics.clear();
 			for (const auto& obj : value) {
-				current_graphics.emplace_back(gphx::parse_graphics(obj));
+				current_graphics.emplace_back(graphics::parse_graphics(obj));
 			}
 		}
 	};

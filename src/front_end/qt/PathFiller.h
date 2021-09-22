@@ -7,7 +7,7 @@
 
 namespace billiards::qt {
 
-#define SPHERE_RESOLUTION 50
+#define SPHERE_RESOLUTION 20
 #define TOLERANCE 1e-4
 
 	class PathFiller {
@@ -18,13 +18,13 @@ namespace billiards::qt {
 		QBrush brush;
 		bool atFirst;
 
-		PathFiller(const project::RenderLocation& location, QPainter& painter, const gphx::Color& color)
+		PathFiller(const project::RenderLocation& location, QPainter& painter, const graphics::Color& color)
 			: location{location}, painter{painter}, path{}, brush{
 			QColor(
-				(int) (255 * color.red),
-				(int) (255 * color.green),
-				(int) (255 * color.blue),
-				(int) (255 * color.alpha)),
+				(int) (color.red),
+				(int) (color.green),
+				(int) (color.blue),
+				(int) (color.alpha)),
 			Qt::SolidPattern}, atFirst{true} {}
 
 		void raw_vertex(const geometry::Point& center) {
@@ -40,12 +40,12 @@ namespace billiards::qt {
 			raw_vertex(location.map(center));
 		}
 
-		void setColor(const gphx::Color& color) {
+		void setColor(const graphics::Color& color) {
 			brush.setColor(QColor(
-				(int) (255 * color.red),
-				(int) (255 * color.green),
-				(int) (255 * color.blue),
-				(int) (255 * color.alpha)));
+				(int) (color.red),
+				(int) (color.green),
+				(int) (color.blue),
+				(int) (color.alpha)));
 		}
 
 		void fill() {

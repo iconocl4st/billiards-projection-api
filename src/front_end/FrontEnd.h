@@ -16,6 +16,8 @@ namespace billiards::project {
 		FrontEnd() = default;
 		virtual ~FrontEnd() = default;
 
+		std::mutex& mutex() { return display.graphics.mutex; }
+
 		virtual int loop() = 0;
 		virtual void redraw() = 0;
 		virtual void shutdown() = 0;

@@ -22,10 +22,10 @@ namespace billiards::gl {
 			glClearColor(0.0, 0.0, 0.0, 1.0);
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			for (const auto& ptr: display.current_graphics) {
+			for (const auto& ptr: display.graphics.current_graphics) {
 				std::string type = ptr->get_type();
 				if (type == "circle") {
-					auto *circle = dynamic_cast<gphx::Circle *>(ptr.get());
+					auto *circle = dynamic_cast<graphics::Circle *>(ptr.get());
 					fill_circle(
 						display.location,
 						circle->color,
@@ -35,7 +35,7 @@ namespace billiards::gl {
 			}
 
 			{
-				gphx::Color color{0.0, 0.1, 1.0, 0.5};
+				graphics::Color color{0.0, 0.1, 1.0, 0.5};
 				std::array<geometry::Point, 5> points = {
 					geometry::Point{0, 0},
 					geometry::Point{display.location.table_width, 0},

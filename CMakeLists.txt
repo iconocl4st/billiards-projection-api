@@ -40,3 +40,6 @@ target_link_libraries(
 	    ${GLUT_LIBRARY}
 	    Threads::Threads
 )
+
+
+install(TARGETS projector_api DESTINATION /app)

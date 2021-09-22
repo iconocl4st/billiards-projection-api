@@ -19,6 +19,8 @@ namespace billiards::qt {
 
 
 	void ProjectorWidget::paintEvent(QPaintEvent *) {
+		std::lock_guard<std::mutex> guard{display.graphics.mutex};
+
 		QPainter painter(this);
 		QBrush brush;
 		brush.setStyle(Qt::SolidPattern);
@@ -41,5 +43,13 @@ namespace billiards::qt {
 		for (const auto& graphics : display.graphics.current_graphics) {
 			receiver.accept(graphics.get());
 		}
+
+		receiver.fill_segment(
+			graphics::Color{0, 0, 1, 1},
+			5,
+			geometry::Point{5, 15},
+			geometry::Point{40, 10},
+			true, true
+		);
 	}
 }
