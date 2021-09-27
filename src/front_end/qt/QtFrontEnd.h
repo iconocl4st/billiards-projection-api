@@ -20,14 +20,15 @@ namespace billiards::qt {
 		QApplication app;
 		ProjectorWidget projector;
 
-		QtFrontEnd(int argc, char **argv)
+		QtFrontEnd(int& argc, char **argv)
 			: FrontEnd{}
 			, app{argc, argv}
 			, projector{display}
 			{}
 
 		int loop() override {
-			projector.showFullScreen();
+			projector.show();
+//			projector.showFullScreen();
 			return app.exec();
 		}
 

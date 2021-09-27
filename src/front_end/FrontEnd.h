@@ -23,8 +23,7 @@ namespace billiards::project {
 		virtual void shutdown() = 0;
 	};
 
-
-	FrontEnd *create_front_end(int argc, char **argv);
+	FrontEnd *create_front_end(int& argc, char **argv);
 }
 
 

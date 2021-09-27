@@ -4,7 +4,7 @@ CONFIG += c++1z debug
 TARGET = qt-projection-api
 TEMPLATE = app
 
-INCLUDEPATH += "/home/chronos/pool/repos/billiards-common/src"
+INCLUDEPATH += $$(REPOS)/billiards-common/src
 
 SOURCES += \
     src/project_api.cpp \
@@ -17,6 +17,6 @@ HEADERS += src/front_end/qt/ProjectorWidget.h
 LIBS += -lboost_system
 
 binaries.path = $$(DESTDIR)/app
-binaries.files += qt-projection-api
+binaries.files += $$OUT_PWD/qt-projection-api
 binaries.CONFIG = no_check_exist
 INSTALLS += binaries

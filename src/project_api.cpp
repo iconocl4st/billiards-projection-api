@@ -19,7 +19,8 @@ namespace locals {
 	billiards::project::FrontEnd *front_end;
 
 	void run_front_end(int argc, char **argv) {
-		locals::front_end = billiards::project::create_front_end(argc, argv);
+		int tmp_argc = argc;
+		locals::front_end = billiards::project::create_front_end(tmp_argc, argv);
 		if (locals::front_end == nullptr) {
 			std::cerr << "Unable to create front end." << std::endl;
 			return;
@@ -28,47 +29,18 @@ namespace locals {
 		locals::front_end->loop();
 	}
 
-	void *shutdown(void *) {
-
-	}
+//	void *shutdown(void *) {
+//		return nullptr;
+//	}
 }
 
 
 int main(int argc, char **argv) {
-	billiards::utils::Args args{argc, argv};
-
 	std::thread display_thread{locals::run_front_end, argc, argv};
 
 	crow::SimpleApp app;
 
-	std::mutex shutdown_mutex;
-	const uint64_t start_time = std::time(0);
-	CROW_ROUTE(app, "/crow/")
-		.methods("GET"_method, "PUT"_method, "OPTIONS"_method)
-			([start_time, &app, &shutdown_mutex](const crow::request& req) {
-				if (req.method == "OPTIONS"_method) {
-					HANDLE_OPTIONS;
-				} else if (req.method == "GET"_method) {
-					std::stringstream string_stream;
-					string_stream << "Uptime: " << (std::time(0) - start_time);
-					RETURN_SUCCESS(string_stream.str());
-				} else if (req.method == "PUT"_method) {
-					nlohmann::json value = nlohmann::json::parse(req.body);
-
-					if (value.contains("shutdown")
-						&& value["shutdown"].is_boolean()
-						&& value["shutdown"].get<bool>()
-					) {
-						// TODO:
-						// This stops the processes from returning...
-						app.stop();
-						RETURN_SUCCESS("Shutting down");
-					}
-					RETURN_SUCCESS("Nothing to do");
-				} else {
-					return crow::response(404);
-				}
-			});
+	DO_STATUS_ENDPOINT();
 
 	CROW_ROUTE(app, "/location/")
 		.methods("GET"_method, "PUT"_method, "OPTIONS"_method)
