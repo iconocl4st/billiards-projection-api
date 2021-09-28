@@ -60,7 +60,21 @@ namespace billiards::qt {
 
 		}
 		void draw(const graphics::Lines *graphics) const override {
-
+			geometry::Point prev;
+			bool has_previous = false;
+			for (auto& current : graphics->points) {
+				if (has_previous) {
+					fill_segment(
+						graphics->color,
+						graphics->line_width,
+						prev,
+						current,
+						true, true
+					);
+				}
+				prev = current;
+				has_previous = true;
+			}
 		}
 		void draw(const graphics::Image *graphics) const override {
 

@@ -36,7 +36,7 @@ namespace billiards::qt {
 
 		painter.setFont(font);
 		painter.setPen(Qt::green);
-		painter.drawText(10, 100, QString("Here, we have some text"));
+		painter.drawText(10, 100, QString("No graphics to display."));
 
 
 		Receiver receiver{display.location, painter};
@@ -44,12 +44,26 @@ namespace billiards::qt {
 			receiver.accept(graphics.get());
 		}
 
-		receiver.fill_segment(
-			graphics::Color{0, 0, 1, 1},
-			5,
-			geometry::Point{5, 15},
-			geometry::Point{40, 10},
-			true, true
-		);
+		{
+//				geometry::Point{},
+			graphics::Lines edges;
+			edges.line_width = 1;
+			edges.fill = false;
+			edges.color = graphics::Color{0, 0, 255, 255};
+			edges.points.emplace_back(0, 0);
+			edges.points.emplace_back(display.location.table_width, 0);
+			edges.points.emplace_back(display.location.table_width, display.location.table_height);
+			edges.points.emplace_back(0, display.location.table_height);
+			edges.points.emplace_back(0, 0);
+			receiver.accept(&edges);
+		}
+
+//		receiver.fill_segment(
+//			graphics::Color{0, 0, 1, 1},
+//			5,
+//			geometry::Point{5, 15},
+//			geometry::Point{40, 10},
+//			true, true
+//		);
 	}
 }
