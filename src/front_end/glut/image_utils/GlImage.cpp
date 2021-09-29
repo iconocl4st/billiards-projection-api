@@ -4,7 +4,7 @@
 
 #include "GlImage.h"
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <iostream>
 
 GlImage::GlImage(GLsizei width, GLsizei height) :
@@ -30,7 +30,7 @@ GlImage *create_gl_image(billiards::util::PngData *img)
 		return nullptr;
 	}
 
-	GlImage *ret = new GlImage((GLsizei) img->width, (GLsizei) img->height);
+	auto *ret = new GlImage((GLsizei) img->width, (GLsizei) img->height);
 	GLubyte *offset = ret->bytes;
 	for (int y = img->height-1; y >= 0; y--)
 	{

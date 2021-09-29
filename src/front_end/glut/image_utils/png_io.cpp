@@ -6,11 +6,9 @@
  *
  */
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdarg.h>
+#include <cstdlib>
+#include <cstdio>
+#include <cstdarg>
 
 #define PNG_DEBUG 3
 #include <png.h>
@@ -58,9 +56,7 @@ namespace billiards::util{
 			return nullptr;
 		}
 
-		PngData * img = new
-		PngData
-		{};
+		auto* img = new PngData{};
 		img->png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
 
 		if (!img->png_ptr) {

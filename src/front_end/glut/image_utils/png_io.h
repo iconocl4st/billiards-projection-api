@@ -24,8 +24,11 @@ namespace billiards::util {
 		PngData() :
 			width{0},
 			height{0},
+			color_type{},
+			bit_depth{},
 			png_ptr{nullptr},
 			info_ptr{nullptr},
+			number_of_passes{},
 			row_pointers{nullptr} {}
 
 		virtual ~PngData();

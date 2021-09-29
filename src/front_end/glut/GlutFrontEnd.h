@@ -35,7 +35,7 @@ namespace billiards::gl {
 			}
 
 			{
-				graphics::Color color{0.0, 0.1, 1.0, 0.5};
+				graphics::Color color{0, 10, 255, 127};
 				std::array<geometry::Point, 5> points = {
 					geometry::Point{0, 0},
 					geometry::Point{display.location.table_width, 0},
