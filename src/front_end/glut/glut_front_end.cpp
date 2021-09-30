@@ -18,7 +18,7 @@ namespace locals {
 }
 
 namespace billiards::project {
-	FrontEnd *create_front_end(int argc, char **argv) {
+	FrontEnd *create_front_end(int& argc, char **argv) {
 		locals::glut_front_end = new gl::GlutFrontEnd();
 		glutInit(&argc, argv);
 		glutInitWindowSize(1920 / 2, 1080 / 2);

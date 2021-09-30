@@ -57,8 +57,6 @@ public:
 	}
 
 	void parse(const nlohmann::json& value) override {
-		std::cout << "parsing " << value.dump() << std::endl;
-
 		if (value.contains("table")) {
 			auto& table_dims = value["table"];
 			if (table_dims.contains("width") && table_dims["width"].is_number()) {

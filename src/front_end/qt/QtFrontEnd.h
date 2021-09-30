@@ -28,6 +28,7 @@ namespace billiards::qt {
 
 		int loop() override {
 			projector.show();
+			projector.resize(1500, 800);
 //			projector.showFullScreen();
 			return app.exec();
 		}

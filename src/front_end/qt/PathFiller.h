@@ -7,6 +7,7 @@
 
 namespace billiards::qt {
 
+// TODO: Make this depend on the radius....
 #define SPHERE_RESOLUTION 20
 #define TOLERANCE 1e-4
 
