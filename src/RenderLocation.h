@@ -5,8 +5,7 @@
 #ifndef GLVIEW_RENDERLOCATION_H
 #define GLVIEW_RENDERLOCATION_H
 
-#include "common/geometry/Point.h"
-
+#include "billiards_common/geometry/Point.h"
 
 namespace billiards::project {
 

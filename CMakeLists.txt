@@ -14,7 +14,7 @@ find_package(PkgConfig)
 
 set(CMAKE_VERBOSE_MAKEFILE on)
 
-# include(/mnt/1f0ab4b3-c472-49e1-92d8-c0b5664f7fdb/ProjectsForFun/Pool/repos/billiards-common/CMakeLists.txt)
+# include(/mnt/1f0ab4b3-c472-49e1-92d8-c0b5664f7fdb/ProjectsForFun/Pool/repos/billiards-billiards_common/CMakeLists.txt)
 
 
 

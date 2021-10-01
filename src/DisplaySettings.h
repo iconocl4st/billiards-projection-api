@@ -11,8 +11,8 @@
 
 #include "RenderLocation.h"
 
-#include "common/graphics/GraphicsPrimitive.h"
-#include "common/graphics/parse_graphics.h"
+#include "billiards_common/graphics/GraphicsPrimitive.h"
+#include "billiards_common/graphics/parse_graphics.h"
 
 namespace billiards::project {
 

@@ -6,11 +6,10 @@
 #include <iostream>
 #include <ctime>
 
-#include "common/utils/Args.h"
-
-#include "common/3rd_party/crow_all.h"
-#include "common/utils/crow_common.h"
-#include "common/config/ports.h"
+#include "billiards_common/utils/Args.h"
+#include "billiards_common/3rd_party/crow_all.h"
+#include "billiards_common/utils/crow_common.h"
+#include "billiards_common/config/ports.h"
 
 #include "front_end/FrontEnd.h"
 

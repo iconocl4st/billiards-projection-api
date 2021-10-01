@@ -9,9 +9,9 @@
 
 #include <GL/glut.h>
 
+#include "billiards_common/graphics/Color.h"
 #include "../../RenderLocation.h"
-#include "common/graphics/Color.h"
-#include "./image_utils/GlImage.h"
+#include "image_utils/GlImage.h"
 
 
 

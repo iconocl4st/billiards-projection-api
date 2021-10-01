@@ -7,7 +7,7 @@
 
 #include <GL/gl.h>
 
-#include "./png_io.h"
+#include "png_io.h"
 
 class GlImage {
 public:

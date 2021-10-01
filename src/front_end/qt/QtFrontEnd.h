@@ -9,7 +9,7 @@
 #include <QOpenGLWidget>
 #include <QApplication>
 
-#include "./ProjectorWidget.h"
+#include "ProjectorWidget.h"
 #include "../FrontEnd.h"
 
 

@@ -7,10 +7,10 @@
 
 #include <GL/glut.h>
 
-#include "../FrontEnd.h"
-#include "./gl_render.h"
+#include "billiards_common/graphics/Circle.h"
 
-#include "common/graphics/Circle.h"
+#include "../FrontEnd.h"
+#include "gl_render.h"
 
 namespace billiards::gl {
 

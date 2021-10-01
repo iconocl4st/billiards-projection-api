@@ -8,7 +8,7 @@
 #include <QPainter>
 #include <QPainterPath>
 
-#include "common/graphics/GraphicsReceiver.h"
+#include "billiards_common/graphics/GraphicsReceiver.h"
 #include "PathFiller.h"
 
 namespace billiards::qt {

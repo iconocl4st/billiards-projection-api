@@ -9,7 +9,7 @@
 #include <QtWidgets/QApplication>
 #include <QPainterPath>
 
-#include "./paint.h"
+#include "paint.h"
 #include "QtReceiver.h"
 
 namespace billiards::qt {

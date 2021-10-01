@@ -8,8 +8,8 @@
 #include <QPainter>
 #include <QPainterPath>
 
-#include "common/graphics/Circle.h"
-#include "common/graphics/Lines.h"
+#include "billiards_common/graphics/Circle.h"
+#include "billiards_common/graphics/Lines.h"
 
 
 
