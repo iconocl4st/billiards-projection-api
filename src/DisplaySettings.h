@@ -32,13 +32,17 @@ namespace billiards::project {
 			writer.end_array();
 		}
 
-		void parse(const nlohmann::json& value) override {
+		void parse(const nlohmann::json& value, json::ParseResult& result) override {
 			if (!value.is_array()) {
 				return;
 			}
 			current_graphics.clear();
 			for (const auto& obj : value) {
-				current_graphics.emplace_back(graphics::parse_graphics(obj));
+				auto g = graphics::parse_graphics(obj, result);
+				if (!result.success) {
+					return;
+				}
+				current_graphics.push_back(g);
 			}
 		}
 	};
@@ -57,12 +61,12 @@ namespace billiards::project {
 			writer.end_object();
 		}
 
-		void parse(const nlohmann::json& value) override {
-			if (value.contains("graphics") && value["graphics"].is_object()) {
-				graphics.parse(value["graphics"]);
+		void parse(const nlohmann::json& value, json::ParseResult& result) override {
+			if (HAS_OBJECT(value, "graphics")) {
+				PARSE_CHILD(result, value["graphics"], graphics);
 			}
-			if (value.contains("location") && value["location"].is_object()) {
-				location.parse(value["location"]);
+			if (HAS_OBJECT(value, "location")) {
+				PARSE_CHILD(result, value["location"], location);
 			}
 		}
 	};

@@ -51,13 +51,18 @@ int main(int argc, char **argv) {
 				RETURN_SUCCESS_WITH_DATA("Retrieved the current location", "location",
 					locals::front_end->display.location);
 			} else if (req.method == "PUT"_method) {
+				std::lock_guard<std::mutex> guard{locals::front_end->mutex()};
 				nlohmann::json value = nlohmann::json::parse(req.body);
-
-				if (value.contains("location") && value["location"].is_array()) {
-					locals::front_end->display.location.parse(value["location"]);
+				billiards::json::ParseResult result;
+				if (HAS_OBJECT(value, "location")) {
+					locals::front_end->display.location.parse(value["location"], result);
 				}
 				locals::front_end->redraw();
-				RETURN_SUCCESS("Updated the projector location");
+				if (result.success) {
+					RETURN_SUCCESS("Updated the projector location");
+				} else {
+					RETURN_ERROR("Unable to parse location");
+				}
 			} else {
 				return crow::response(404);
 			}
@@ -75,8 +80,14 @@ int main(int argc, char **argv) {
 				} else if (req.method == "PUT"_method) {
 					std::lock_guard<std::mutex> guard{locals::front_end->mutex()};
 					nlohmann::json value = nlohmann::json::parse(req.body);
-					if (value.contains("graphics") && value["graphics"].is_array()) {
-						locals::front_end->display.graphics.parse(value["graphics"]);
+					billiards::json::ParseResult status;
+					if (HAS_ARRAY(value, "graphics")) {
+						locals::front_end->display.graphics.parse(value["graphics"], status);
+					} else {
+						RETURN_ERROR("No graphics provided");
+					}
+					if (!status.success) {
+						RETURN_ERROR("Unable to parse graphics");
 					}
 					locals::front_end->redraw();
 					RETURN_SUCCESS("Updated current graphics");

@@ -56,24 +56,26 @@ public:
 		writer.end_object();
 	}
 
-	void parse(const nlohmann::json& value) override {
-		if (value.contains("table")) {
+	void parse(const nlohmann::json& value, json::ParseResult& result) override {
+		if (HAS_OBJECT(value, "table")) {
 			auto& table_dims = value["table"];
-			if (table_dims.contains("width") && table_dims["width"].is_number()) {
+			if (HAS_NUMBER(table_dims, "width")) {
 				table_width = table_dims["width"].get<double>();
 			}
-			if (table_dims.contains("height") && table_dims["height"].is_number()) {
-				table_height = table_dims["height"].get<double>();
+			if (HAS_NUMBER(table_dims, "height")) {
+				table_width = table_dims["height"].get<double>();
 			}
 		}
-		if (value.contains("offset")) {
-			of.parse(value["offset"]);
+		if (HAS_OBJECT(value, "offset")) {
+			PARSE_CHILD(result, value["offset"], of);
 		}
-		if (value.contains("up")) {
-			up.parse(value["up"]);
+
+		if (HAS_OBJECT(value, "up")) {
+			PARSE_CHILD(result, value["up"], up);
 		}
-		if (value.contains("right")) {
-			rt.parse(value["right"]);
+
+		if (HAS_OBJECT(value, "right")) {
+			PARSE_CHILD(result, value["right"], rt);
 		}
 	}
 };
