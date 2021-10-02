@@ -14,7 +14,7 @@
 #include <png.h>
 #include <GL/gl.h>
 
-#include "./png_io.h"
+#include "front_end/glut/image_utils/png_io.h"
 
 namespace billiards::util{
 

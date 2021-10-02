@@ -10,8 +10,8 @@
 #include <GL/glut.h>
 
 #include "billiards_common/graphics/Color.h"
-#include "../../RenderLocation.h"
-#include "image_utils/GlImage.h"
+#include "RenderLocation.h"
+#include "front_end/glut/image_utils/GlImage.h"
 
 
 

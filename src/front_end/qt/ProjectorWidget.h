@@ -9,7 +9,7 @@
 #include <QWidget>
 
 
-#include "../../DisplaySettings.h"
+#include "DisplaySettings.h"
 
 
 namespace billiards::qt {

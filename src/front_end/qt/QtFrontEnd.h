@@ -9,8 +9,8 @@
 #include <QOpenGLWidget>
 #include <QApplication>
 
-#include "ProjectorWidget.h"
-#include "../FrontEnd.h"
+#include "front_end/qt/ProjectorWidget.h"
+#include "front_end/FrontEnd.h"
 
 
 namespace billiards::qt {

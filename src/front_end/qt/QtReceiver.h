@@ -9,7 +9,7 @@
 #include <QPainterPath>
 
 #include "billiards_common/graphics/GraphicsReceiver.h"
-#include "PathFiller.h"
+#include "front_end/qt/PathFiller.h"
 
 namespace billiards::qt {
 

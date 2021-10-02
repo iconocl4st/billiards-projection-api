@@ -9,8 +9,8 @@
 
 #include "billiards_common/graphics/Circle.h"
 
-#include "../FrontEnd.h"
-#include "gl_render.h"
+#include "front_end/FrontEnd.h"
+#include "front_end/glut/gl_render.h"
 
 namespace billiards::gl {
 

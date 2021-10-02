@@ -5,7 +5,7 @@
 #ifndef GLVIEW_GLUT_FRONT_END_H
 #define GLVIEW_GLUT_FRONT_END_H
 
-#include "../DisplaySettings.h"
+#include "DisplaySettings.h"
 
 namespace billiards::project {
 

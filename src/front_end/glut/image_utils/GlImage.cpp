@@ -2,7 +2,7 @@
 // Created by thallock on 9/5/21.
 //
 
-#include "GlImage.h"
+#include "front_end/glut/image_utils/GlImage.h"
 
 #include <cstdlib>
 #include <iostream>

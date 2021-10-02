@@ -33,6 +33,7 @@ target_include_directories(
 	projector_api
 	
 	PUBLIC
+	${PROJECT_SOURCE_DIR}/src
 	$ENV{REPOS}/billiards-common/src/
 )
 

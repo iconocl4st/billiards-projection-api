@@ -3,7 +3,7 @@
 //
 
 
-#include "GlutFrontEnd.h"
+#include "front_end/glut/GlutFrontEnd.h"
 
 namespace locals {
 	billiards::gl::GlutFrontEnd *glut_front_end;
