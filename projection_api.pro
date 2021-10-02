@@ -4,12 +4,11 @@ CONFIG += c++1z debug
 TARGET = qt-projection-api
 TEMPLATE = app
 
-INCLUDEPATH += $$(REPOS)/billiards-common/src
+INCLUDEPATH += $$(REPOS)/billiards-common/src src
 
 SOURCES += \
     src/project_api.cpp \
     src/front_end/qt/qt_front_end.cpp \
-    src/front_end/qt/QtFrontEnd.cpp \
     src/front_end/qt/ProjectorWidget.cpp
 
 HEADERS += src/front_end/qt/ProjectorWidget.h
