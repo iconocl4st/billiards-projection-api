@@ -4,7 +4,7 @@ CONFIG += c++1z debug
 TARGET = qt-projection-api
 TEMPLATE = app
 
-INCLUDEPATH += $$(REPOS)/billiards-common/src src
+INCLUDEPATH += $$(REPOS)/billiards-common/src src /usr/include
 
 SOURCES += \
     src/project_api.cpp \
