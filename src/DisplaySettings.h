@@ -34,7 +34,7 @@ namespace billiards::project {
 
 		void parse(const nlohmann::json& value, json::ParseResult& result) override {
 			if (!value.is_array()) {
-				return;
+				return; // TODO
 			}
 			current_graphics.clear();
 			for (const auto& obj : value) {
