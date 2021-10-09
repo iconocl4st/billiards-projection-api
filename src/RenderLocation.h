@@ -20,8 +20,8 @@ public:
 	RenderLocation() :
 		table_width{92},
 		table_height{46},
-		of{15, 20},
-		up{20, 560},
+		of{15, 700},
+		up{20, -560},
 		rt{1000, -5} {}
 
 	[[nodiscard]] inline
