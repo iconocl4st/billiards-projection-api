@@ -34,6 +34,7 @@ target_include_directories(
 	
 	PUBLIC
 	${PROJECT_SOURCE_DIR}/src
+	${PROJECT_SOURCE_DIR}/../billiards-common/src
 	$ENV{REPOS}/billiards-common/src/
 )
 
