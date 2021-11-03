@@ -15,7 +15,7 @@ HEADERS += src/front_end/qt/ProjectorWidget.h
 
 LIBS += -lboost_system
 
-binaries.path = $$(DESTDIR)/app
-binaries.files += $$OUT_PWD/qt-projection-api
-binaries.CONFIG = no_check_exist
-INSTALLS += binaries
+#binaries.path = $$(DESTDIR)/app
+#binaries.files += $$OUT_PWD/qt-projection-api
+#binaries.CONFIG = no_check_exist
+#INSTALLS += binaries
