@@ -17,12 +17,13 @@ public:
 	geometry::Point up; // straight up on table
 	geometry::Point rt; // right on table
 
-	RenderLocation() :
-		table_width{92},
-		table_height{46},
-		of{15, 700},
-		up{20, -560},
-		rt{1000, -5} {}
+    RenderLocation()
+		: table_width{92}
+		, table_height{46}
+		, of{1900, -2}
+		, up{17, 1977}
+		, rt{-1875, 43}
+    {}
 
 	[[nodiscard]] inline
 	geometry::Point map(double x, double y) const {
