@@ -50,7 +50,7 @@ namespace billiards::qt {
 		}
 		void draw(const graphics::Polygon *g) const override {
 			auto num_vertices = g->vertices.size();
-			for (auto i = 0; i < num_vertices; i++) {
+			for (auto i = 0; i < (int) num_vertices; i++) {
 				fill_segment(
 					g->color, g->line_width,
 					g->vertices[i], g->vertices[(i + 1) % num_vertices],
