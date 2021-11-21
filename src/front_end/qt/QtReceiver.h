@@ -85,7 +85,7 @@ namespace billiards::qt {
 			painter.setPen(color);
 			const auto loc = location.map(g->location);
 			// TODO: Center it here...
-			painter.drawText(loc.x, loc.y, QString("No graphics to display."));
+			painter.drawText(loc.x, loc.y, QString::fromStdString(g->text));
 		}
 
 		void fill_segment(
