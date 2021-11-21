@@ -9,7 +9,7 @@
 #include <memory>
 #include <mutex>
 
-#include "../../billiards-common/src/billiards_common/config/RenderLocation.h"
+#include "billiards_common/config/RenderLocation.h"
 
 #include "billiards_common/graphics/GraphicsPrimitive.h"
 #include "billiards_common/graphics/parse_graphics.h"
