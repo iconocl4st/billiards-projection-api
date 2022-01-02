@@ -9,7 +9,7 @@ find_package(PNG)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 find_package(Boost COMPONENTS system REQUIRED)
-find_package (Eigen3 3.3 REQUIRED NO_MODULE HINTS /usr/share/cmake/Modules/)
+find_package (Eigen3 3.3 REQUIRED NO_MODULE HINTS /usr/share/cmake/Modules/ /usr/share/eigen3/cmake/)
 
 find_package(PkgConfig)
 
@@ -42,14 +42,14 @@ target_include_directories(
 
 
 target_link_libraries(
-    	projector_api
+    projector_api
 
-	    ${PNG_LIBRARY}
-	    ${OPENGL_LIBRARIES}
-	    ${GLUT_LIBRARY}
-	    Threads::Threads
-		${Boost_SYSTEM_LIBRARY}
-		Eigen3::Eigen
+	${PNG_LIBRARY}
+	${OPENGL_LIBRARIES}
+	${GLUT_LIBRARY}
+	Threads::Threads
+	${Boost_SYSTEM_LIBRARY}
+	Eigen3::Eigen
 )
 
 
