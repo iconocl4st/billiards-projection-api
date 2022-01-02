@@ -5,22 +5,24 @@
 #ifndef IDEA_PATHFILLER_H
 #define IDEA_PATHFILLER_H
 
+
+#include "billiards_common/geometry/triangulation/Map.h"
+
 namespace billiards::qt {
 
 // TODO: Make this depend on the radius....
 #define SPHERE_RESOLUTION 20
-#define TOLERANCE 1e-4
 
 	class PathFiller {
 	public:
-		const project::RenderLocation& location;
+		const geometry::TriangulationMap& mapping;
 		QPainter& painter;
 		QPainterPath path;
 		QBrush brush;
 		bool atFirst;
 
-		PathFiller(const project::RenderLocation& location, QPainter& painter, const graphics::Color& color)
-			: location{location}, painter{painter}, path{}, brush{
+		PathFiller(const geometry::TriangulationMap& mapping, QPainter& painter, const graphics::Color& color)
+			: mapping{mapping}, painter{painter}, path{}, brush{
 			QColor(
 				(int) (color.red),
 				(int) (color.green),
@@ -38,7 +40,7 @@ namespace billiards::qt {
 		}
 
 		void vertex(const geometry::Point& center) {
-			raw_vertex(location.map(center));
+			raw_vertex(mapping.map(center));
 		}
 
 		void setColor(const graphics::Color& color) {

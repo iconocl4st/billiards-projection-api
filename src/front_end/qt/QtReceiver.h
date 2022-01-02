@@ -13,19 +13,18 @@
 
 namespace billiards::qt {
 
-
 	class Receiver : public graphics::GraphicsReceiver {
 	public:
-		const project::RenderLocation& location;
+		const geometry::TriangulationMap& mapping;
 		QPainter& painter;
 
-		Receiver(const project::RenderLocation& location, QPainter& painter)
-			: location{location}, painter{painter} {}
+		Receiver(const geometry::TriangulationMap& mapping, QPainter& painter)
+			: mapping{mapping}, painter{painter} {}
 
 		~Receiver() = default;
 
 		void fill(const graphics::Circle *graphics) const override {
-			PathFiller p{location, painter, graphics->color};
+			PathFiller p{mapping, painter, graphics->color};
 			for (int i=0; i<SPHERE_RESOLUTION; i++) {
 				double a = 2 * M_PI * i / (SPHERE_RESOLUTION - 1);
 				p.vertex(graphics->center + geometry::Point{
@@ -42,7 +41,7 @@ namespace billiards::qt {
 				0, 2 * M_PI);
 		}
 		void fill(const graphics::Polygon *graphics) const override {
-			PathFiller p{location, painter, graphics->color};
+			PathFiller p{mapping, painter, graphics->color};
 			for (auto& vertex : graphics->vertices) {
 				p.vertex(vertex);
 			}
@@ -83,7 +82,7 @@ namespace billiards::qt {
 				(int) g->color.blue,
 				(int) g->color.alpha};
 			painter.setPen(color);
-			const auto loc = location.map(g->location);
+			const auto loc = mapping.map(g->location);
 			// TODO: Center it here...
 			painter.drawText(loc.x, loc.y, QString::fromStdString(g->text));
 		}
@@ -103,7 +102,7 @@ namespace billiards::qt {
 			geometry::Point orth{nd.y, -nd.x};
 			geometry::Point rorth = orth * line_width;
 
-			PathFiller p{location, painter, color};
+			PathFiller p{mapping, painter, color};
 			p.vertex(p1 - rorth);
 			p.vertex(p2 - rorth);
 			if (round2) {
@@ -150,12 +149,12 @@ namespace billiards::qt {
 				}
 				geometry::Point nnormal = normal * (line_width / nnorm);
 
-				geometry::Point cur_inner = location.map(center + dir - nnormal);
-				geometry::Point cur_outer = location.map(center + dir + nnormal);
+				geometry::Point cur_inner = mapping.map(center + dir - nnormal);
+				geometry::Point cur_outer = mapping.map(center + dir + nnormal);
 
 
 				if (has_prev) {
-					PathFiller p{location, painter, color};
+					PathFiller p{mapping, painter, color};
 					p.raw_vertex(prev_inner);
 					p.raw_vertex(prev_outer);
 					p.raw_vertex(cur_outer);

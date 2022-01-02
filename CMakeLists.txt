@@ -9,6 +9,7 @@ find_package(PNG)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 find_package(Boost COMPONENTS system REQUIRED)
+find_package (Eigen3 3.3 REQUIRED NO_MODULE HINTS /usr/share/cmake/Modules/)
 
 find_package(PkgConfig)
 
@@ -19,13 +20,13 @@ set(CMAKE_VERBOSE_MAKEFILE on)
 
 
 add_executable(
-        projector_api
+	projector_api
 
-        src/project_api.cpp
-        src/front_end/glut/glut_front_end.cpp
+    src/project_api.cpp
+    src/front_end/glut/glut_front_end.cpp
 
-        src/front_end/glut/image_utils/png_io.cpp
-        src/front_end/glut/image_utils/GlImage.cpp
+    src/front_end/glut/image_utils/png_io.cpp
+    src/front_end/glut/image_utils/GlImage.cpp
 )
 
 #target_link_libraries(projector_api billiards_common)
@@ -48,7 +49,11 @@ target_link_libraries(
 	    ${GLUT_LIBRARY}
 	    Threads::Threads
 		${Boost_SYSTEM_LIBRARY}
+		Eigen3::Eigen
 )
 
 
-install(TARGETS projector_api DESTINATION /app)
+install(
+	TARGETS projector_api
+	DESTINATION /app
+)

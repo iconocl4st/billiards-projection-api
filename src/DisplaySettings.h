@@ -9,7 +9,7 @@
 #include <memory>
 #include <mutex>
 
-#include "billiards_common/config/RenderLocation.h"
+#include "billiards_common/geometry/triangulation/Map.h"
 
 #include "billiards_common/graphics/GraphicsPrimitive.h"
 #include "billiards_common/graphics/parse_graphics.h"
@@ -47,11 +47,12 @@ namespace billiards::project {
 		}
 	};
 
-	class DisplaySettings : public json::Serializable  {
+	class DisplaySettings /* : public json::Serializable */  {
 	public:
 		DisplayGraphics graphics;
-		RenderLocation location;
+		geometry::TriangulationMap map;
 
+		/*
 		void to_json(json::SaxWriter& writer) const override {
 			writer.begin_object();
 			writer.key("graphics");
@@ -69,8 +70,8 @@ namespace billiards::project {
 				PARSE_CHILD(result, value["location"], location);
 			}
 		}
+		 */
 	};
-
 }
 
 

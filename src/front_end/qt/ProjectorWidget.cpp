@@ -40,7 +40,7 @@ namespace billiards::qt {
 			painter.drawText(w / 2, h / 2, QString("No graphics to display."));
 		}
 
-		Receiver receiver{display.location, painter};
+		Receiver receiver{display.map, painter};
 		for (const auto& graphics : display.graphics.current_graphics) {
 			receiver.accept(graphics.get());
 		}
