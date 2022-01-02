@@ -34,6 +34,9 @@ target_include_directories(
 	projector_api
 	
 	PUBLIC
+
+	${EIGEN3_INCLUDE_DIRS}
+
 	${PROJECT_SOURCE_DIR}/src
 	${PROJECT_SOURCE_DIR}/../billiards-common/src
 	$ENV{REPOS}/billiards-common/src/
