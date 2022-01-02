@@ -8,7 +8,7 @@
 #include "billiards_common/geometry/triangulation/Map.h"
 #include "billiards_common/config/MappingInfo.h"
 
-#include <eigen3/Eigen/Dense>
+#include <Eigen/Dense>
 
 namespace billiards::project {
 
