@@ -29,11 +29,6 @@ namespace billiards::qt {
 		int h = height();
 		painter.fillRect(0, 0, w, h, Qt::black);
 
-//		std::shared_ptr<gphx::Circle> ptr = std::make_shared<gphx::Circle>(geometry::Point{25, 25}, 25);
-//		ptr->color = gphx::Color{1, 1, 0, 1};
-//		ptr->fill = true;
-//		paint(display.location, painter, ptr);
-
 		if (display.graphics.current_graphics.empty()) {
 			painter.setFont(font);
 			painter.setPen(Qt::green);
@@ -44,18 +39,5 @@ namespace billiards::qt {
 		for (const auto& graphics : display.graphics.current_graphics) {
 			receiver.accept(graphics.get());
 		}
-
-		{
-//				geometry::Point{},
-
-		}
-
-//		receiver.fill_segment(
-//			graphics::Color{0, 0, 1, 1},
-//			5,
-//			geometry::Point{5, 15},
-//			geometry::Point{40, 10},
-//			true, true
-//		);
 	}
 }

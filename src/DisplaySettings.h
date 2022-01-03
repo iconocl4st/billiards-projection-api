@@ -34,6 +34,7 @@ namespace billiards::project {
 
 		void parse(const nlohmann::json& value, json::ParseResult& result) override {
 			if (!value.is_array()) {
+				throw std::runtime_error{"Received graphics that was not an array"};
 				return; // TODO
 			}
 			current_graphics.clear();
